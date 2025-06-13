@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  db:
+    image: mariadb:11.3
+    container_name: saas-db
+    restart: always
+    environment:
+      MARIADB_DATABASE: saas_backend
+      MARIADB_USER: saas_user
+      MARIADB_PASSWORD: adminpassword
+      MARIADB_ROOT_PASSWORD: rootpass
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: saas-backend
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/saas_backend
+      SPRING_DATASOURCE_USERNAME: saas_user
+      SPRING_DATASOURCE_PASSWORD: adminpassword
+
+volumes:
+  db_data:

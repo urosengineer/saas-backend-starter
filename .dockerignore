@@ -1,0 +1,5 @@
+.git
+.idea
+uploads
+*.iml
+*.md

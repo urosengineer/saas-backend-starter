@@ -1,0 +1,60 @@
+# Maven output
+/target/
+
+# Gradle output
+.gradle/
+build/
+
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+
+# Uploaded files / temporary
+/uploads
+/tmp/
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+
+/.git
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Ignore database/data folders
+db_data/
+data/
+database/
+*.db
+
+# Docker
+*.pid
+*.seed
+*.bak
+docker-compose.override.yml
+
+# Misc
+*.swp
+*.swo
+
+# Java crash logs
+hs_err_pid*
+
+/out/
+
+# VS Code Java project settings
+.vscode/

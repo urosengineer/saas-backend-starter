@@ -1,0 +1,41 @@
+# =========================
+# SaaS Backend Starter - Demo Config
+# ⚠️ For demo/portfolio only! Real secrets must be set as environment variables.
+# =========================
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mariadb://localhost:3307/saas_backend}
+    username: ${SPRING_DATASOURCE_USERNAME:saas_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:adminpassword}
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+jwt:
+  secret: ${JWT_SECRET:super-secret-key-that-is-very-long-and-random-for-jwt-signing-123456789}
+  expiration-ms: ${JWT_EXPIRATION_MS:3600000}
+  refresh-token-duration-ms: ${JWT_REFRESH_TOKEN_DURATION_MS:604800000}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: "when_authorized"
+  health:
+    probes:
+      enabled: true
