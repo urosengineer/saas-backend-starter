@@ -2,8 +2,6 @@
 
 set -e
 
-echo "Building the app (Maven)..."
-./mvnw clean package -DskipTests
-
-echo "Starting Docker Compose services..."
+echo
+echo "Building and starting app via Docker Compose..."
 docker-compose up --build
