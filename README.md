@@ -52,11 +52,7 @@ You can clone the repository, build the app, and launch all services using Docke
 
 **Instructions:**
 
-1. **Build the app:**
-    ```bash
-    ./mvnw clean package -DskipTests
-    ```
-2. **Start all services:**
+1. **Start all services (build and run everything in Docker):**
     ```bash
     docker-compose up --build
     ```
