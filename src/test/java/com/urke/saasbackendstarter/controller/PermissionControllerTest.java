@@ -4,7 +4,7 @@ import com.urke.saasbackendstarter.domain.Permission;
 import com.urke.saasbackendstarter.mapper.PermissionMapper;
 import com.urke.saasbackendstarter.service.PermissionService;
 import com.urke.saasbackendstarter.security.JwtTokenProvider;
-import com.urke.saasbackendstarter.config.SecurityConfig;
+import com.urke.saasbackendstarter.security.SecurityConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

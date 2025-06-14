@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(OrganizationController.class)
-@Import(com.urke.saasbackendstarter.config.SecurityConfig.class)
+@Import(com.urke.saasbackendstarter.security.SecurityConfig.class)
 class OrganizationControllerTest {
 
     @Autowired

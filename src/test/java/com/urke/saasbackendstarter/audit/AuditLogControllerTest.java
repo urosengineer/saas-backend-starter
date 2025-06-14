@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Verifies that audit log endpoints are accessible and secured according to roles.
  */
 @WebMvcTest(AuditLogController.class)
-@Import(com.urke.saasbackendstarter.config.SecurityConfig.class)
+@Import(com.urke.saasbackendstarter.security.SecurityConfig.class)
 class AuditLogControllerTest {
 
     @Autowired
