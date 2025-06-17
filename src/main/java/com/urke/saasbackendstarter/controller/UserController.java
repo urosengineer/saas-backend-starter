@@ -149,10 +149,6 @@ public class UserController {
     		@PathVariable Long id,
     	    @Valid @RequestBody UserUpdateRequest request,
     	    Principal principal) {
-    	
-    	System.out.println("[DEBUG] req: " + request);
-        System.out.println("[DEBUG] fullName: " + request.getFullName());
-        System.out.println("[DEBUG] class: " + request.getClass());
 
         User currentUser = userService.findByEmail(principal.getName())
                 .orElseThrow(() -> new UserNotFoundException(msg("user.notfound")));
