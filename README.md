@@ -245,8 +245,8 @@ src/
                             auth/
                             user/
                             organization/
-							role/
-							permission/
+                            role/
+                            permission/
                             // Other DTOs (e.g., AuditLogDTO, NotificationMessage, etc.)
                         events/
                         exception/
