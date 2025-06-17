@@ -8,8 +8,7 @@ import java.util.Optional;
  * Service interface for managing permissions.
  */
 public interface PermissionService {
-    List<Permission> findAll();
-    Optional<Permission> findById(Long id);
-    Optional<Permission> findByName(String name);
+    List<Permission> findAllByOrganizationId(Long organizationId);
+    Optional<Permission> findByNameAndOrganizationId(String name, Long organizationId);
     Permission save(Permission permission);
 }

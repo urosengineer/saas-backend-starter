@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.List;
 
 /**
- * Service implementation for managing roles.
+ * Service implementation for managing roles (per organization).
  */
 @Service
 @RequiredArgsConstructor
@@ -24,18 +24,18 @@ public class RoleServiceImpl implements RoleService {
     private final MessageSource messageSource;
 
     @Override
-    public Optional<Role> findByName(String name) {
-        return roleRepository.findByName(name);
+    public Optional<Role> findByNameAndOrganizationId(String name, Long organizationId) {
+        return roleRepository.findByNameAndOrganizationId(name, organizationId);
     }
 
     @Override
-    public List<Role> findAll() {
-        return roleRepository.findAll();
+    public List<Role> findAllByOrganizationId(Long organizationId) {
+        return roleRepository.findAllByOrganizationId(organizationId);
     }
 
     @Override
     public Role save(Role role) {
-        if (roleRepository.existsByName(role.getName())) {
+        if (roleRepository.existsByNameAndOrganizationId(role.getName(), role.getOrganization().getId())) {
             throw new RoleAlreadyExistsException(
                 messageSource.getMessage("role.exists", null, LocaleContextHolder.getLocale())
             );

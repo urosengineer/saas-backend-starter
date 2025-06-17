@@ -43,13 +43,14 @@ public class UserServiceImpl implements UserService {
                 messageSource.getMessage("user.exists", null, LocaleContextHolder.getLocale())
             );
         }
-        Role userRole = roleRepository.findByName("USER")
-                .orElseThrow(() -> new RuntimeException(
-                    messageSource.getMessage("role.notfound", null, LocaleContextHolder.getLocale())
-                ));
 
         Organization organization = organizationRepository.findById(request.getOrganizationId())
                 .orElseThrow(() -> new RuntimeException("Organization not found"));
+
+        Role userRole = roleRepository.findByNameAndOrganizationId("USER", organization.getId())
+                .orElseThrow(() -> new RuntimeException(
+                    messageSource.getMessage("role.notfound", null, LocaleContextHolder.getLocale())
+                ));
 
         User user = User.builder()
                 .email(request.getEmail())

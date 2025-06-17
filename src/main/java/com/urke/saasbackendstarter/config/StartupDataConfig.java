@@ -29,44 +29,52 @@ public class StartupDataConfig {
             BCryptPasswordEncoder passwordEncoder
     ) {
         return args -> {
-            // Permissions
-            Permission pUserUpdateSelf = permissionRepository.findByName("USER_UPDATE_SELF")
-                    .orElseGet(() -> permissionRepository.save(Permission.builder().name("USER_UPDATE_SELF").build()));
-            Permission pUserViewAll = permissionRepository.findByName("USER_VIEW_ALL")
-                    .orElseGet(() -> permissionRepository.save(Permission.builder().name("USER_VIEW_ALL").build()));
-            Permission pUserDelete = permissionRepository.findByName("USER_DELETE")
-                    .orElseGet(() -> permissionRepository.save(Permission.builder().name("USER_DELETE").build()));
-            Permission pOrgManage = permissionRepository.findByName("ORG_MANAGE")
-                    .orElseGet(() -> permissionRepository.save(Permission.builder().name("ORG_MANAGE").build()));
+            Organization demoOrg = organizationRepository.findBySlugAndDeletedFalse("demo-org")
+                    .orElseGet(() -> organizationRepository.save(
+                        Organization.builder()
+                            .name("Demo Org")
+                            .slug("demo-org")
+                            .deleted(false)
+                            .build()
+            ));
 
-            // Roles
-            Role userRole = roleRepository.findByName("USER")
-                .orElseGet(() -> roleRepository.save(
-                    Role.builder().name("USER").permissions(Set.of(pUserUpdateSelf)).build()));
+            Permission pUserUpdateSelf = permissionRepository.findByNameAndOrganizationId("USER_UPDATE_SELF", demoOrg.getId())
+                    .orElseGet(() -> permissionRepository.save(
+                        Permission.builder().name("USER_UPDATE_SELF").organization(demoOrg).build()));
+            Permission pUserViewAll = permissionRepository.findByNameAndOrganizationId("USER_VIEW_ALL", demoOrg.getId())
+                    .orElseGet(() -> permissionRepository.save(
+                        Permission.builder().name("USER_VIEW_ALL").organization(demoOrg).build()));
+            Permission pUserDelete = permissionRepository.findByNameAndOrganizationId("USER_DELETE", demoOrg.getId())
+                    .orElseGet(() -> permissionRepository.save(
+                        Permission.builder().name("USER_DELETE").organization(demoOrg).build()));
+            Permission pOrgManage = permissionRepository.findByNameAndOrganizationId("ORG_MANAGE", demoOrg.getId())
+                    .orElseGet(() -> permissionRepository.save(
+                        Permission.builder().name("ORG_MANAGE").organization(demoOrg).build()));
+
+            Role userRole = roleRepository.findByNameAndOrganizationId("USER", demoOrg.getId())
+                    .orElseGet(() -> roleRepository.save(
+                        Role.builder()
+                            .name("USER")
+                            .permissions(Set.of(pUserUpdateSelf))
+                            .organization(demoOrg)
+                            .build()));
             if (userRole.getPermissions() == null || userRole.getPermissions().isEmpty()) {
                 userRole.setPermissions(Set.of(pUserUpdateSelf));
                 roleRepository.save(userRole);
             }
 
-            Role adminRole = roleRepository.findByName("ADMIN")
-                .orElseGet(() -> roleRepository.save(
-                    Role.builder().name("ADMIN").permissions(Set.of(pUserUpdateSelf, pUserViewAll, pUserDelete, pOrgManage)).build()));
+            Role adminRole = roleRepository.findByNameAndOrganizationId("ADMIN", demoOrg.getId())
+                    .orElseGet(() -> roleRepository.save(
+                        Role.builder()
+                            .name("ADMIN")
+                            .permissions(Set.of(pUserUpdateSelf, pUserViewAll, pUserDelete, pOrgManage))
+                            .organization(demoOrg)
+                            .build()));
             if (adminRole.getPermissions() == null || adminRole.getPermissions().isEmpty()) {
                 adminRole.setPermissions(Set.of(pUserUpdateSelf, pUserViewAll, pUserDelete, pOrgManage));
                 roleRepository.save(adminRole);
             }
 
-            // === ORGANIZATION SEED ===
-            Organization demoOrg = organizationRepository.findBySlugAndDeletedFalse("demo-org")
-            	    .orElseGet(() -> organizationRepository.save(
-            	        Organization.builder()
-            	            .name("Demo Org")
-            	            .slug("demo-org")
-            	            .deleted(false)
-            	            .build()
-            	));
-
-            // === ADMIN USER SEED ===
             if (userRepository.findByEmailAndDeletedFalse("admin@demo.com").isEmpty()) {
                 User admin = User.builder()
                         .email("admin@demo.com")

@@ -6,10 +6,14 @@ import lombok.*;
 import java.util.Set;
 
 /**
- * Entity representing a user role.
+ * Entity representing a user role, scoped per organization (tenant).
  */
 @Entity
-@Table(name = "roles")
+@Table(name = "roles",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"name", "organization_id"})
+    }
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,7 +24,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false, length = 32)
+    @Column(nullable = false, length = 32)
     @NotBlank
     private String name;
 
@@ -31,4 +35,8 @@ public class Role {
         inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
     private Set<Permission> permissions;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "organization_id", nullable = false)
+    private Organization organization;
 }

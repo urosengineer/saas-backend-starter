@@ -20,18 +20,13 @@ public class PermissionServiceImpl implements PermissionService {
     private final PermissionRepository permissionRepository;
 
     @Override
-    public List<Permission> findAll() {
-        return permissionRepository.findAll();
+    public List<Permission> findAllByOrganizationId(Long organizationId) {
+        return permissionRepository.findAllByOrganizationId(organizationId);
     }
 
     @Override
-    public Optional<Permission> findById(Long id) {
-        return permissionRepository.findById(id);
-    }
-
-    @Override
-    public Optional<Permission> findByName(String name) {
-        return permissionRepository.findByName(name);
+    public Optional<Permission> findByNameAndOrganizationId(String name, Long organizationId) {
+        return permissionRepository.findByNameAndOrganizationId(name, organizationId);
     }
 
     @Override

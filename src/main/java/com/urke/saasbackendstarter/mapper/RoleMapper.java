@@ -2,8 +2,8 @@ package com.urke.saasbackendstarter.mapper;
 
 import com.urke.saasbackendstarter.domain.Role;
 import com.urke.saasbackendstarter.domain.Permission;
-import com.urke.saasbackendstarter.dto.RoleDTO;
-import com.urke.saasbackendstarter.dto.PermissionDTO;
+import com.urke.saasbackendstarter.dto.permission.PermissionDTO;
+import com.urke.saasbackendstarter.dto.role.RoleDTO;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -30,6 +30,13 @@ public class RoleMapper {
                         ? entity.getPermissions().stream()
                             .map(RoleMapper::toDTO)
                             .collect(Collectors.toSet())
+                        : null)
+                .organization(entity.getOrganization() != null
+                        ? RoleDTO.OrganizationSummary.builder()
+                            .id(entity.getOrganization().getId())
+                            .name(entity.getOrganization().getName())
+                            .slug(entity.getOrganization().getSlug())
+                            .build()
                         : null)
                 .build();
     }
