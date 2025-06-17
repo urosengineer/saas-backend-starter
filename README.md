@@ -45,6 +45,58 @@ It showcases how to architect, document, and secure a Java backend following the
 
 ---
 
+## Database Entity-Relationship (ER) Diagram
+
+Below is the Entity-Relationship (ER) diagram illustrating the **core database schema** for this SaaS backend starter.  
+This schema is focused on the essential entities and relationships required for secure, multi-tenant SaaS business logic, while remaining fully extensible for real-world applications.
+
+![Database ER Diagram](docs/saas_backend_schema.png)
+
+### Diagram Overview
+
+- **Multi-tenant architecture**: All user, file, and audit records are scoped per organization (tenant).
+- **Core entities**:  
+  - `User`, `Organization`, `Role`, `Permission`, and `AuditLog`
+  - Per-user and per-organization file management tables
+- **Relationships**:
+  - Each user is linked to an organization.
+  - Flexible role & permission assignments enable fine-grained RBAC/PBAC.
+  - Audit/event logging tracks changes at user and organization level.
+  - Soft deletion is implemented via `deletedAt` fields, ensuring a complete audit trail.
+- **Extensible foundation**:  
+  The model supports future business modules, custom fields, or new entities with minimal refactoring.
+
+> **Note:**  
+> This schema is streamlined for the SaaS starter and contains fewer tables compared to large enterprise platforms, but follows the same best-practice architectural principles for clarity, scalability, and security.
+
+### Reading the Diagram
+
+- **Solid lines** represent strong foreign key relationships.
+- **Crow’s foot notation** denotes cardinality (one-to-many, many-to-many).
+- **Key fields** (`id`) and audit columns (timestamps, soft delete) are marked for transparency.
+
+---
+
+## Database Schema Auto-Update
+
+For demo and portfolio purposes, this project is configured with:
+
+    spring.jpa.hibernate.ddl-auto=update
+
+This enables automatic schema update on application startup.
+
+> ⚠️ **Production Usage Warning**  
+>
+> - In any real production environment, database schema management **must** be handled via migration tools such as [Flyway](https://flywaydb.org/) or [Liquibase](https://www.liquibase.org/).
+> - The `ddl-auto` property should be set to `validate` (or `none`) to prevent accidental schema changes.
+> - All credentials and secrets **must** be provided via secure mechanisms and **never committed to version control**.
+>
+> This configuration is **intentional**, to simplify code review and enable easy local setup for demo purposes only.
+>
+> **Do not use this configuration in production.**
+
+---
+
 ## 🟢 Runnable Demo – Quick Start
 
 This project is a fully runnable Spring Boot backend.
@@ -114,26 +166,6 @@ This repository is published strictly for portfolio and demonstration purposes.
 - It is fully runnable locally for demo purposes, but it is not a production-ready deployment.
 - This repository contains the entire backend codebase as used for local development, demo, and portfolio review. It is not intended as a ready-made production deployment, but as a comprehensive reference implementation.
 - All secrets and credentials are intentionally omitted and should never be committed to version control.
-
----
-
-## Database Schema Auto-Update
-
-For demo and portfolio purposes, this project is configured with:
-
-    spring.jpa.hibernate.ddl-auto=update
-
-This enables automatic schema update on application startup.
-
-> ⚠️ **Production Usage Warning**  
->
-> - In any real production environment, database schema management **must** be handled via migration tools such as [Flyway](https://flywaydb.org/) or [Liquibase](https://www.liquibase.org/).
-> - The `ddl-auto` property should be set to `validate` (or `none`) to prevent accidental schema changes.
-> - All credentials and secrets **must** be provided via secure mechanisms and **never committed to version control**.
->
-> This configuration is **intentional**, to simplify code review and enable easy local setup for demo purposes only.
->
-> **Do not use this configuration in production.**
 
 ---
 
