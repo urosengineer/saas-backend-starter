@@ -323,7 +323,7 @@ mvn test
 ## Portfolio & Contact
 
 For technical deep-dive, architecture consultations, or backend contract work, contact via  
-[Upwork](https://www.upwork.com/freelancers/~01fec0932cf5314b14) or [LinkedIn](https://www.linkedin.com/in/uros-ilic-6a201436a/).
+[LinkedIn](https://www.linkedin.com/in/uros-ilic-6a201436a/).
 
 ## License
 
