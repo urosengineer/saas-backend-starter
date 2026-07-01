@@ -1,6 +1,6 @@
 # saas-backend-starter
 
-[![CI](https://github.com/urosengineer/saas-backend-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/urosengineer/saas-backend-starter/actions/workflows/ci.yml)
+[![CI](https://github.com/urosengineer/saas-backend-starter/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/urosengineer/saas-backend-starter/actions/workflows/ci.yml)
 
 > **Status:** Portfolio reference project. Feature-complete snapshot maintained for dependency/security compatibility, CI health, and documentation accuracy.
 >
