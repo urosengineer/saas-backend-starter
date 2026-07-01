@@ -1,13 +1,17 @@
 # saas-backend-starter
 
-> ⚠️ **Note:** This project demonstrates fully functional, production-grade engineering practices, and is published for portfolio and educational purposes.
+[![CI](https://github.com/urosengineer/saas-backend-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/urosengineer/saas-backend-starter/actions/workflows/ci.yml)
+
+> **Status:** Portfolio reference project. Feature-complete snapshot maintained for dependency/security compatibility, CI health, and documentation accuracy.
+>
+> ⚠️ **Note:** This project demonstrates a complete, runnable backend reference implementation and is published for portfolio and educational purposes.
 > While the codebase is complete and runnable, it is not intended for direct production use without additional security review, infrastructure improvements, and deployment hardening.
 
 This codebase is curated and maintained by Uros, a backend engineer specializing in enterprise Java/Spring Boot solutions.  
-It demonstrates best practices in modern backend architecture, secure API design, and production-quality engineering.
+It demonstrates practical patterns in modern backend architecture, secure API design, and maintainable Spring Boot engineering.
 
-This repository presents a **complete, multi-tenant SaaS backend platform** suitable for real-world business automation, team collaboration, and data management use cases.  
-It showcases how to architect, document, and secure a Java backend following the highest enterprise standards.
+This repository presents a **complete, multi-tenant SaaS backend reference implementation** for common business backend concerns such as authentication, authorization, tenant-scoped data, auditing, file handling, and API documentation.
+It showcases how to structure, document, and secure a Java backend using enterprise-style Spring Boot practices.
 
 ---
 
@@ -270,12 +274,14 @@ src/
         resources/
 pom.xml
 README.md
+CHANGELOG.md
 docker-compose.yml
 Dockerfile
 run-demo.sh
 run-demo.cmd
 mvnw
 mvnw.cmd
+.github/workflows/ci.yml
 .gitignore
 ```
 
@@ -289,7 +295,7 @@ This codebase follows industry best practices for testing and code quality.
 - Core service logic is tested for main business flows (e.g., user/role/organization management).
 - Exception handling and validation edge cases are covered with controller and global handler tests.
 - Audit logging and domain events are included in test scenarios.
-- All tests are runnable out of the box (`mvn test`), without any external setup.
+- All tests are runnable out of the box (`./mvnw -B test`), without any external setup.
 - The test directory structure mirrors the main package layout for clarity.
 
 > Full coverage reports (Jacoco) available on request or can be generated locally.
@@ -297,10 +303,20 @@ This codebase follows industry best practices for testing and code quality.
 Example test output (all green):
 
 ```bash
-mvn test
+./mvnw -B test
 # ...
-# Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
+# Tests run: 45, Failures: 0, Errors: 0, Skipped: 0
 ```
+
+## Continuous Integration
+
+The repository includes a GitHub Actions CI workflow that runs on pushes and pull requests to `master`.
+
+- Builds with Java 21.
+- Caches Maven dependencies.
+- Runs the full Maven test suite with `./mvnw -B test`.
+- Verifies the application package with `./mvnw -B package -DskipTests`.
+
 ---
 
 ## Key Architecture Highlights
